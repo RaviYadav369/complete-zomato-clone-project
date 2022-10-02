@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 // Database connection
 import ConnectDB from "./dataBase/Connection";
 
+import Auth from "./api/auth";
+import Food from "./api/Food";
+
 dotenv.config();
 
 const zomato = express();
@@ -15,6 +18,11 @@ zomato.get("/", (req, res) => {
     message: "Server is running",
   });
 });
+
+// /auth/signup
+zomato.use("/auth", Auth);
+//Food route
+zomato.use("/food", Food);
 
 const PORT = 4000;
 
