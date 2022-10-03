@@ -21,10 +21,10 @@ UserSchema.methods.generateJwtToken = function () {
 };
 
 //helper function
-UserSchema.statics.findByEmailAndPhone = async ({ email, phoneNumber }) => {
+UserSchema.statics.findByEmailAndPhone = async ({ email, phone }) => {
     const checkUserByEmail = await UserModel.findOne({ email });
-    const checkUserByPhone = await UserModel.findOne({ phoneNumber });
-    console.log(checkUserByEmail);
+    const checkUserByPhone = await UserModel.findOne({ phone });
+    // console.log(checkUserByEmail);
     if (checkUserByEmail || checkUserByPhone) {
         throw new Error("User Already Exists......!");
     }

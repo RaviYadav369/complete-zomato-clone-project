@@ -1,6 +1,5 @@
 import express from "express";
 
-import { UserModel } from "../../dataBase/User";
 
 const Router = express.Router();
 
@@ -13,9 +12,12 @@ const Router = express.Router();
  */
 Router.get("/", async (req, res) => {
     try {
-      
+        const { email, fullname, phone } = req.user;
+        return res.status(200).json({ user: {  fullname,email, phone } })
 
     } catch (error) {
         return res.status(500).json({ error: error.message })
     }
 })
+
+export default Router;

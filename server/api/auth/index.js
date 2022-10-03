@@ -8,7 +8,7 @@ Router.post('/signup', async (req, res) => {
     try {
         await UserModel.findByEmailAndPhone(req.body.credentials);
         const newUser = await UserModel.create(req.body.credentials);
-        console.log(newUser);
+        // console.log(newUser);
         const token = newUser.generateJwtToken();
         return res.status(200).json({ token, status: "Success" });
 
