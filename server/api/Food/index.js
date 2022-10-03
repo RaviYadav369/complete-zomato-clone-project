@@ -1,6 +1,6 @@
 import express from "express";
 
-import { FoodeModel } from "../../dataBase/AllModels";
+import { FoodModel } from "../../dataBase/AllModels";
 
 const Router = express.Router();
 
@@ -15,8 +15,8 @@ const Router = express.Router();
 Router.get("/:_id", async (req, res) => {
     try {
         const { _id } = req.params;
-        const foods = FoodeModel.findById(_id);
-        return res.send(200).json({ foods })
+        const foods = await FoodModel.findById({ _id });
+        return res.status(200).json({ foods })
 
     } catch (error) {
         return res.status(400).json({ error: error.message })
@@ -30,7 +30,7 @@ Router.get("/:_id", async (req, res) => {
  */
 Router.post("/", async (req, res) => {
     try {
-        const newfood = await FoodeModel.create(req.body.foods);
+        const newfood = await FoodModel.create(req.body.foods);
         return res.status(200).json({ success: true, newfood })
     }
     catch (error) {
@@ -48,7 +48,7 @@ Router.post("/", async (req, res) => {
 Router.get("/r/:_id", async (req, res) => {
     try {
         const { _id } = req.params
-        const foods = await FoodeModel.find({
+        const foods = await FoodModel.find({
             restaurant: _id,
         });
         return res.json({ foods })
@@ -69,7 +69,7 @@ Router.get("/r/:_id", async (req, res) => {
 Router.get("/c/:category", async (req, res) => {
     try {
         const { category } = req.params;
-        const foodWithCategory = await FoodeModel.find({
+        const foodWithCategory = await FoodModel.find({
             category: { $regex: category, $options: "i" },
         })
         if (!foodWithCategory) {

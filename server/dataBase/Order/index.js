@@ -15,15 +15,15 @@ const OrderSchema = new mongoose.Schema(
                     },
                     quantity: { type: Number, required: true, },
 
-                }],
-
+                },
+            ],
                 paymode: { type: String, required: true, },
                 status: { type: String, required: true, },
                 paymentDetails:
                 {
                     itemTotal: { type: String, required: true, },
-                    promo: { type: Number, required: true, },
-                    tax: { type: Number, required: true, },
+                    promo: { type: String, required: true, },
+                    tax: { type: String, required: true, },
                     razorpay_payment_id: { type: String, required: true, },
                 }
             },

@@ -3,6 +3,13 @@ import express from "express";
 import { UserModel } from "../../dataBase/AllModels";
 
 const Router = express.Router();
+/**
+ * Route : /signup
+ * Des :   Create Account
+ * Param : none
+ * Access: Public
+ * Method: post
+ */
 
 Router.post('/signup', async (req, res) => {
     try {
@@ -16,6 +23,14 @@ Router.post('/signup', async (req, res) => {
         return res.status(500).json({ error: error.message })
     }
 })
+
+/**
+ * Route : /signin
+ * Des :   Login the user
+ * Param : none
+ * Access: Public
+ * Method: post
+ */
 
 Router.post("/signin", async (req, res) => {
     try {

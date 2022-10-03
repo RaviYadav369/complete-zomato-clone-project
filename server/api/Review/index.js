@@ -11,3 +11,4 @@ const Router = express.Router();
  * Access : Public
  * Method : Get
  */
+Router.get("/")

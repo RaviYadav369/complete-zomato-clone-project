@@ -1,4 +1,4 @@
-import { FoodeModel } from "./Food"
+import { FoodModel } from "./Food"
 import { ImageModel } from "./Images"
 import { MenuModel } from "./Menu"
 import { OrderModel } from "./Order"
@@ -7,7 +7,7 @@ import { ReviewModel } from "./Review"
 import { UserModel } from "./User"
 
 export {
-    FoodeModel,
+    FoodModel,
     ImageModel,
     MenuModel,
     OrderModel,
