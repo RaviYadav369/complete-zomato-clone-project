@@ -8,7 +8,7 @@ const MenuSchema = new mongoose.Schema(
                 items: [
                     {
                         type: mongoose.Types.ObjectId,
-                        ref: "menus"
+                        ref: "foods"
                     },
                 ],
             },

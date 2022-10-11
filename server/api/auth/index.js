@@ -1,6 +1,7 @@
 import express from "express";
 
 import { UserModel } from "../../dataBase/AllModels";
+import { ValidationSignin, ValidationSignup } from "../../validation/Auth-Validation";
 
 const Router = express.Router();
 /**
@@ -13,6 +14,7 @@ const Router = express.Router();
 
 Router.post('/signup', async (req, res) => {
     try {
+        await ValidationSignup(req.body.credentials);
         await UserModel.findByEmailAndPhone(req.body.credentials);
         const newUser = await UserModel.create(req.body.credentials);
         // console.log(newUser);
@@ -34,6 +36,7 @@ Router.post('/signup', async (req, res) => {
 
 Router.post("/signin", async (req, res) => {
     try {
+        await ValidationSignin(req.body.credentials)
         const user = await UserModel.findByEmailAndPassword(req.body.credentials);
         const token = user.generateJwtToken();
         return res.status(200).json({succes: true, token})

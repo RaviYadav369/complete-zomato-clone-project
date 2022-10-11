@@ -17,7 +17,6 @@ const Router = express.Router()
 Router.get("/", passport.authenticate("jwt", { session: false }), async (req, res) => {
     try {
         const { user } = req;
-        console.log(user);
         const getOrder = await OrderModel.find({ user: user._id })
         if (!getOrder) {
             return res.status(404).json({ message: "user not found" })

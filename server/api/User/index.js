@@ -1,6 +1,8 @@
 import express from "express";
 import passport from "passport";
 import { UserModel } from "../../dataBase/User";
+import { ValidationSignup } from "../../validation/Auth-Validation";
+import { validationId } from "../../validation/Common-Validation";
 
 const Router = express.Router();
 
@@ -31,6 +33,7 @@ Router.get("/", passport.authenticate("jwt", { session: false }), async (req, re
 Router.get("/:_id", async (req, res) => {
     try {
         const { _id } = req.params;
+        await validationId(req.params);
         const getUser = await UserModel.findById(_id);
         if (!getUser) {
             return res.status(404).json({ message: "NO User Found" })
@@ -53,7 +56,8 @@ Router.get("/:_id", async (req, res) => {
 Router.put('/update/:_id', passport.authenticate("jwt", { session: false }), async (req, res) => {
     try {
         const { _id } = req.params;
-    const {userData} = req.body;
+        const { userData } = req.body;
+        await ValidationSignup(req.body.userData)
         const updatedUserData = await UserModel.findByIdAndUpdate(
             _id,
             {

@@ -1,19 +1,22 @@
 import express from "express"
 
-import RestaurantModel from "../../dataBase/AllModels"
+import {RestaurantModel} from "../../dataBase/AllModels"
+import { validationCategory, validationId } from "../../validation/Common-Validation";
+import { validationQuery, validationRestaurant, validationSearch } from "../../validation/Restaurant-Validation";
 
 const Router = express.Router();
 
 /**
- * Route : /:id
- * Des :   Get Restaurant based on id
- * Param : _id
+ * Route : /
+ * Des :   create new restaurant
+ * Param : none
  * Access: Public
  * Method: Get
  */
 
 Router.post('/', async (req, res) => {
     try {
+        await validationRestaurant(req.body.restaurant);
         const restaurantData = await RestaurantModel.create(req.body.restaurant);
         return res.status(200).json({ success: true, restaurantData })
 
@@ -34,7 +37,8 @@ Router.get("/:_id", async (req, res) => {
 
     try {
         const { _id } = req.params;
-        const restaurantData = await RestaurantModel.findById(_id)
+        await validationId(req.params)
+        const restaurantData = await RestaurantModel.findById({_id})
         if (!restaurantData) {
             return res.status(404).json({ message: "Does not found Restaurant with entered ID" })
         }
@@ -80,8 +84,9 @@ Router.get("/", async (req, res) => {
 Router.get("/search/:searchString", async (req, res) => {
     try {
         const { searchString } = req.params;
+        await validationSearch(req.params)
         const restaurantData = await RestaurantModel.find({
-            name: { $regular: searchString, $options: "i" },
+            name: { $regex: searchString, $options: "i" },
         })
         if (!restaurantData) {
             return res.status(404).json({ message: "NO Reataurant Found" })
