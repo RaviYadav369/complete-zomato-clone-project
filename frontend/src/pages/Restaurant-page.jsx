@@ -1,9 +1,14 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
+import RestaurantLayout from '../layouts/Restaurant-layout'
 
-const Restaurant = () => {
+const RestaurantPage = () => {
   return (
-    <div>Restaurant</div>
+    <>
+    <h2>restaurant</h2>
+    <Outlet/>
+    </>
   )
 }
 
-export default Restaurant
+export default RestaurantLayout(RestaurantPage) 

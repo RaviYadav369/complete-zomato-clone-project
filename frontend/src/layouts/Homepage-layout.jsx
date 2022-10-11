@@ -1,9 +1,13 @@
 import React from 'react'
 
-const Homepage = () => {
+const HomeLayout = (Component) => ({ ...props }) => {
   return (
-    <div>Homepage</div>
+    <>
+    <div className='container'>
+      <Component {...props} />
+    </div>
+    </>
   )
 }
 
-export default Homepage
+export default HomeLayout

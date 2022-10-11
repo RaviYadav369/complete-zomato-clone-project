@@ -1,9 +1,9 @@
 import React from 'react'
 
-const GoogleAuth = () => {
+const GoogleAuthPage = () => {
   return (
     <div>GoogleAuth</div>
   )
 }
 
-export default GoogleAuth
+export default GoogleAuthPage

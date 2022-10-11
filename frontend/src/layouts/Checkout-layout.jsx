@@ -1,9 +1,16 @@
 import React from 'react'
 
-const Checkout = () => {
+
+const CheckoutLayout = (Component) => ({ ...props }) =>  {
   return (
-    <div>Checkout</div>
+    <>
+    
+    {/* <Navbar/> */}
+    <div className='container'>
+      <Component {...props} />
+    </div>
+    </>
   )
 }
 
-export default Checkout
+export default CheckoutLayout

@@ -1,9 +1,33 @@
 import './App.css';
+import { Routes, Route, Navigate } from "react-router-dom"
+import HomePage from './pages/Home-page'
+import RestaurantPage from './pages/Restaurant-page'
+import GoogleAuthPage from './pages/GoogleAuth-page'
+import CheckoutPage from './pages/Checkout-page'
+import Overview from './components/Restaurant/Overview'
+import OrderOnline from './components/Restaurant/OrderOnline'
+import Reviews from './components/Restaurant/Reviews'
+import Menu from './components/Restaurant/Menu'
+import Photos from './components/Restaurant/Photos'
+
 
 function App() {
   return (
     <>
-    <h1>hello react</h1>
+      <Routes>
+        <Route path='/' element={<Navigate to='/delivery' />} />
+        <Route path='/:type' element={<HomePage />} />
+        <Route path='/google/:token' element={<GoogleAuthPage />} />
+        {/* <Route path='/restaurant/:id' element={<Restaurant />} /> */}
+        <Route path='restaurant/:id' element={<RestaurantPage />}>
+          <Route path='overview' element={<Overview />} />
+          <Route path='order-online' element={<OrderOnline />} />
+          <Route path='reviews' element={<Reviews />} />
+          <Route path='menu' element={<Menu />} />
+          <Route path='photos' element={<Photos />} />
+        </Route>
+        <Route path='/checkout/orders' element={<CheckoutPage />} />
+      </Routes>
     </>
   );
 }
