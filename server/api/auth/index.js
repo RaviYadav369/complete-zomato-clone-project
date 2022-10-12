@@ -1,4 +1,5 @@
 import express from "express";
+import passport from "passport";
 
 import { UserModel } from "../../dataBase/AllModels";
 import { ValidationSignin, ValidationSignup } from "../../validation/Auth-Validation";
@@ -45,8 +46,24 @@ Router.post("/signin", async (req, res) => {
     catch (error) {
         return res.status(500).json({ error: error.message })
     }
+});
+
+/**
+ * Route : /signin
+ * Des :   Login the user
+ * Param : none
+ * Access: Public
+ * Method: post
+ */
+Router.get('/google', passport.authenticate('google',{
+    scope:[
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+    ]
+}))
+
+Router.get('/google/callback', passport.authenticate('google', { failureRedirect:"/"}),(req,res) =>{
+    return res.status(200).json({ token:req.session.passport.user.token})
 })
-
-
 
 export default Router;

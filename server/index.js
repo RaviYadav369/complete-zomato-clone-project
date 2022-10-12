@@ -2,8 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import passport from "passport";
 import session from "express-session";
+import fileUpload from "express-fileupload";
+import path from "path";
 //private route authorization config
 import privateRoutesConfig from "./config/Routes-config";
+import GoogleConfig from "./config/Google-Config";
 
 // Database connection
 import ConnectDB from "./dataBase/Connection";
@@ -15,6 +18,7 @@ import User from "./api/User"
 import Menu from "./api/Menu"
 import Order from "./api/Order"
 import Review from "./api/Review"
+import Images from "./api/Images"
 
 dotenv.config();
 
@@ -22,6 +26,7 @@ const zomato = express();
 
 //adding additonal passport configuration
 privateRoutesConfig(passport);
+GoogleConfig(passport)
 
 zomato.use(express.json());
 zomato.use(session({secret: "ZOMATOAPP"}));
@@ -34,6 +39,9 @@ zomato.get("/", (req, res) => {
   });
 });
 
+zomato.use(fileUpload({
+  useTempFiles: true
+}))
 // /auth/signup
 zomato.use("/auth", Auth);
 //Food route
@@ -43,6 +51,7 @@ zomato.use("/user", User);
 zomato.use("/menu", Menu);
 zomato.use("/order", Order);
 zomato.use("/review", Review);
+zomato.use("/images", Images);
 
 const PORT = 4000;
 
