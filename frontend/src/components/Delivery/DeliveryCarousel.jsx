@@ -2,9 +2,7 @@ import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Navigation, Pagination } from "swiper";
-import "../../"
+import { Navigation} from "swiper";
 
 import DeliveryCategory from './DeliveryCategory'
 
@@ -78,7 +76,7 @@ const DeliveryCarousel = () => {
         spaceBetween: 50,
       },
     },
-    modules:[Pagination, Navigation],
+    modules:[Navigation],
     className: "mySwiper",
     navigation: true,
   };
@@ -86,13 +84,13 @@ const DeliveryCarousel = () => {
 
   return (
     <>
-      <h1 className='mt-4 mb-2 md:mt-8 md:text-3xl md:font-semibold'> Indpiration for first order</h1>
+      <h1 className='text-xl mt-4 mb-5 md:mt-8 md:text-3xl md:font-semibold'> Indpiration for first order</h1>
       <div className='lg:hidden grid grid-cols-3 md:grid-cols-4 gap-3 justify-center'>
         {categories.map((food,index) => (
           <DeliveryCategory {...food} key={index} />
         ))}
       </div> 
-      <div className='hidden lg:flex'>
+      <div className='hidden lg:block'>
         <Swiper {...slideConfig} >
           {categories.map((food,index) => (
             <SwiperSlide key={index}>

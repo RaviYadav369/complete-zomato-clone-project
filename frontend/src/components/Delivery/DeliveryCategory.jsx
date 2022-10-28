@@ -3,8 +3,8 @@ import React from 'react'
 const DeliverySmCard = ({ image, title }) => {
     return (
         <>
-            <div className='lg:hidden bg-white shadow rounded-md w-24 md:w-36'>
-                <div className='w-full h-24'>
+            <div className='lg:hidden  rounded-md w-full'>
+                <div className='w-full h-26'>
                     <img src={image} alt={title} className='w-full h-full object-center rounded-full' />
                 </div>
 
@@ -22,7 +22,7 @@ const DeliveryLgCard = ({ image, title }) => {
     return (
         <>
             <div className='lg:block hidden rounded-md w-full'>
-                <div className='w-full h-32'>
+                <div className='w-full h-26'>
                     <img src={image} alt={title} className='w-full h-full object-center rounded-full' />
                 </div>
 
