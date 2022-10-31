@@ -1,14 +1,22 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useParams, useLocation, Navigate } from 'react-router-dom'
 import RestaurantLayout from '../layouts/Restaurant-layout'
 
 const RestaurantPage = () => {
+
+  const { id } = useParams();
+  const { pathname } = useLocation();
+
+  if (`/restaurant/${id}` === pathname) {
+    return <Navigate to={`/restaurant/${id}/overview`} />;
+  }
+
+
   return (
     <>
-    <h2>restaurant</h2>
-    <Outlet/>
+      <Outlet />
     </>
   )
 }
 
-export default RestaurantLayout(RestaurantPage) 
+export default RestaurantPage 

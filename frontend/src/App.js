@@ -10,6 +10,8 @@ import Reviews from './components/Restaurant/Reviews'
 import Menu from './components/Restaurant/Menu'
 import Photos from './components/Restaurant/Photos'
 
+import RestaurantLayout from './layouts/Restaurant-layout';
+
 
 function App() {
   return (
@@ -18,8 +20,16 @@ function App() {
         <Route path='/' element={<Navigate to='/delivery' />} />
         <Route path='/:type' element={<HomePage />} />
         <Route path='/google/:token' element={<GoogleAuthPage />} />
-        {/* <Route path='/restaurant/:id' element={<Restaurant />} /> */}
-        <Route path='restaurant/:id' element={<RestaurantPage />}>
+        {/* <Route path='/restaurant/:id' element={<RestaurantPage />} /> */}
+        {/* <Route path='restaurant/:id' element={<RestaurantPage />}> */}
+        <Route
+          path="/restaurant/:id"
+          element={
+            <RestaurantLayout>
+              <RestaurantPage />
+            </RestaurantLayout>
+          }
+        >
           <Route path='overview' element={<Overview />} />
           <Route path='order-online' element={<OrderOnline />} />
           <Route path='reviews' element={<Reviews />} />
