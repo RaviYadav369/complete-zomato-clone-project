@@ -39,8 +39,8 @@ const Tabs = () => {
     },
     {
       title:"Review",
-      route:"review",
-      isActive: currentPath.includes("review"),
+      route:"reviews",
+      isActive: currentPath.includes("reviews"),
     },
     {
       title:"Menu",
@@ -57,9 +57,9 @@ const Tabs = () => {
 
   return (
     <div className='flex relative items-center pb-4 gap-8 md:gap-20 overflow-x-scroll lg:overflow-auto border-b-2'>
-      {Tabs.map((tab,index) =>{
+      {Tabs.map((tab,index) =>(
         <Tab {...tab} key={index} />
-      })}
+      ))}
 
     </div>
   )
