@@ -38,7 +38,19 @@ const Overview = () => {
     "https://b.zmtcdn.com/data/menus/931/931/8d6623791860b054953b6c2c14d61bcb.jpg",
     "https://b.zmtcdn.com/data/menus/931/931/6d462a04051c0eabb0067149aa84cc64.jpg",
   ]);
-  const [reviews, setreviews] = useState([])
+  const [reviews, setreviews] = useState([
+    {
+      rating: 3.5,
+      isRestaurantReview: false,
+      createdAt: "Fri Oct 14 2022 20:20:34 GMT+0530 (India Standard Time)",
+      reviewText: "Very bad experience.",
+    },
+    {
+      rating: 4.5,
+      isRestaurantReview: false,
+      createdAt: "Fri Oct 14 2022 20:19:34 GMT+0530 (India Standard Time)",
+      reviewText: "Very good experience.",
+    },])
   const { id } = useParams();
 
   const slideConfig = {
@@ -105,7 +117,8 @@ const Overview = () => {
         <div className='flex flex-col-reverse'>
           <div className='my-4'>
             <h4 className='text-lg font-medium'> Rate your delivery experience</h4>
-            <ReactStarts count={5} onChange={(newRating) => console.log(newRating)} size={24} activeColor='yellow' />
+            <h2>{restaurant.name}</h2>
+            {/* <ReactStarts count={5} onChange={(newRating) => console.log(newRating)} size={24} activeColor='yellow' /> */}
             {reviews.map((reviews, index) => (
               <ReviewCard key={index} {...reviews} />
             ))}
@@ -139,6 +152,7 @@ const Overview = () => {
             <MapView title="McDonald's"
               phone='+91936945136'
               mapLocation={getLatLong("28.64121406271755, 77.21955482132051")}
+              LatAndLong = {"28.64121406271755, 77.21955482132051"}
               address="H-5/6, Plaza Building, Connaught Place, New Delhi" />
           </div>
         </div>
