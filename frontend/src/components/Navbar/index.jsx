@@ -4,8 +4,19 @@ import { HiLocationMarker } from "react-icons/hi";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
 
-const MobileNav = ({ user, isDropDowm, setisDropDowm }) => {
+import SignIn from "../auth/SignIn";
+import SignUp from "../auth/SignUp";
 
+const MobileNav = ({ user, isDropDowm, setisDropDowm, signIn, signUp }) => {
+  const SignIn = () => {
+    signIn();
+    setisDropDowm(false);
+  };
+
+  const SignUp = () => {
+    signUp();
+    setisDropDowm(false);
+  };
 
   return (
     <div className="flex w-full items-center justify-between lg:hidden container mx-auto">
@@ -48,8 +59,8 @@ const MobileNav = ({ user, isDropDowm, setisDropDowm }) => {
             </span>
             {isDropDowm && (
               <div className="absolute shadow-lg py-3 -bottom-24 -right-4 w-full z-20 flex flex-col gap-3 border border-gray-100">
-                <button>Sign In</button>
-                <button>Sign Out</button>
+                <button onClick={SignIn}>Sign In</button>
+                <button onClick={SignUp}>Sign Out</button>
               </div>
             )}
           </>
@@ -59,7 +70,16 @@ const MobileNav = ({ user, isDropDowm, setisDropDowm }) => {
   );
 };
 
-const LargeNav = ({ user, isDropDowm, setisDropDowm }) => {
+const LargeNav = ({ user, isDropDowm, setisDropDowm, signIn, signUp }) => {
+  const SignIn = () => {
+    signIn();
+    setisDropDowm(false);
+  };
+
+  const SignUp = () => {
+    signUp();
+    setisDropDowm(false);
+  };
 
   return (
     <div className="lg:flex w-full items-center hidden justify-between px-14">
@@ -123,8 +143,8 @@ const LargeNav = ({ user, isDropDowm, setisDropDowm }) => {
             </span>
             {isDropDowm && (
               <div className="absolute shadow-lg py-3 -bottom-24 -right-4 w-32 z-20 bg-white flex flex-col gap-3 border border-gray-100">
-                <button>Sign In</button>
-                <button>Sign Out</button>
+                <button onClick={SignIn}>Sign In</button>
+                <button onClick={SignUp}>Sign Up</button>
               </div>
             )}
           </>
@@ -135,18 +155,37 @@ const LargeNav = ({ user, isDropDowm, setisDropDowm }) => {
 };
 
 const Navbar = () => {
-  const [isDropDowm, setisDropDowm] = useState(false);
+  const [openSignIn, setopenSignIn] = useState(false);
+  const [openSignUp, setopenSignUp] = useState(false);
 
+  const openSignInModal = () => setopenSignIn(true);
+  const openSignUpModal = () => setopenSignUp(true);
+
+  const [isDropDowm, setisDropDowm] = useState(false);
   const user = {
-    fullname: "Ravi",
+    // fullname: "Ravi",
   };
   return (
     <>
-      <nav className="p-4 lg:py-2  flex bg-white shadow-md lg:shadow-none lg: border-b-2 border-gray-100 w-full items-center">
-        <MobileNav user={user} setisDropDowm={setisDropDowm} isDropDowm={isDropDowm} />
-        <LargeNav user={user} setisDropDowm={setisDropDowm} isDropDowm={isDropDowm} />
-      </nav>
+      <SignIn isOpen={openSignIn} setisOpen={setopenSignIn} />
+      <SignUp isOpen={openSignUp} setisOpen={setopenSignUp} />
 
+      <nav className="p-4 lg:py-2  flex bg-white shadow-md lg:shadow-none lg: border-b-2 border-gray-100 w-full items-center">
+        <MobileNav
+          user={user}
+          setisDropDowm={setisDropDowm}
+          isDropDowm={isDropDowm}
+          signIn={openSignInModal}
+          signUp={openSignUpModal}
+        />
+        <LargeNav
+          user={user}
+          setisDropDowm={setisDropDowm}
+          isDropDowm={isDropDowm}
+          signIn={openSignInModal}
+          signUp={openSignUpModal}
+        />
+      </nav>
     </>
   );
 };
