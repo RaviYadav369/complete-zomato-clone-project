@@ -11,7 +11,6 @@ const RestaurantCard = (props) => {
             },
         ],
     });
-    console.log(props.name);
 
     return (
         <Link

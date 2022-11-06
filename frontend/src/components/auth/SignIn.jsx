@@ -2,33 +2,37 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
-
+import { useDispatch } from 'react-redux';
+import { signIn } from "../../redux/reducers/auth/auth.action";
 
 const SignIn = ({ isOpen, setisOpen }) => {
 
-    const [userData, setuserData] = useState({
-        email: "",
-        password: "",
-    });
+  const [userData, setuserData] = useState({
+    email: "",
+    password: "",
+  });
 
-    const handleChange = (e) => {
-        setuserData((prev) => ({ ...prev, [e.target.id]: e.target.value }))
-    };
+  const handleChange = (e) => {
+    setuserData((prev) => ({ ...prev, [e.target.id]: e.target.value }))
+  };
 
-    const closeModal = () => {
-        setisOpen(false)
-    }
-    const submit = () => {
-        closeModal();
-        setuserData({email:"", password:""});
-    }
+  const closeModal = () => {
+    setisOpen(false)
+  }
+  const dispatch = useDispatch();
 
-    const googleSignIn = () => (window.location.href = "https://localhost:4000/auth/google");
+  const submit = () => {
+    dispatch(signIn(userData))
+    closeModal();
+    setuserData({ email: "", password: "" });
+  }
+
+  const googleSignIn = () => (window.location.href = "https://localhost:4000/auth/google");
 
 
-    return (
-        <>
-           <Transition appear show={isOpen} as={Fragment}>
+  return (
+    <>
+      <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -104,8 +108,8 @@ const SignIn = ({ isOpen, setisOpen }) => {
         </Dialog>
       </Transition>
 
-        </>
-    )
+    </>
+  )
 }
 
 export default SignIn

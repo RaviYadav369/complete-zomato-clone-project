@@ -4,6 +4,8 @@ import passport from "passport";
 import session from "express-session";
 import fileUpload from "express-fileupload";
 import path from "path";
+import cors from 'cors'
+import helmet from 'helmet'
 //private route authorization config
 import privateRoutesConfig from "./config/Routes-config";
 import GoogleConfig from "./config/Google-Config";
@@ -28,6 +30,8 @@ const zomato = express();
 privateRoutesConfig(passport);
 GoogleConfig(passport)
 
+zomato.use(cors({origin:"http://localhost:3000"}));
+zomato.use(helmet());
 zomato.use(express.json());
 zomato.use(session({secret: "ZOMATOAPP"}));
 zomato.use(passport.initialize());
