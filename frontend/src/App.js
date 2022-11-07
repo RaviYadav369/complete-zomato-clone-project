@@ -9,11 +9,20 @@ import OrderOnline from './components/Restaurant/OrderOnline'
 import Reviews from './components/Restaurant/Reviews'
 import Menu from './components/Restaurant/Menu'
 import Photos from './components/Restaurant/Photos'
+import { useEffect } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { getMySelf } from './redux/reducers/user/user.action';
 
 import RestaurantLayout from './layouts/Restaurant-layout';
 
 
 function App() {
+  const dispatch =useDispatch();
+  useEffect(() => {
+    dispatch(getMySelf());
+  }, [localStorage])
+  
   return (
     <>
       <Routes>

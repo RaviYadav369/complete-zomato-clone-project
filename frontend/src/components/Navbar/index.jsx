@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
-import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+
+//redux
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "../../redux/reducers/auth/auth.action";
+import { clearUser } from "../../redux/reducers/user/user.action";
 
 import SignIn from "../auth/SignIn";
 import SignUp from "../auth/SignUp";
@@ -17,6 +23,15 @@ const MobileNav = ({ user, isDropDowm, setisDropDowm, signIn, signUp }) => {
     signUp();
     setisDropDowm(false);
   };
+
+  const dispatch =useDispatch();
+  const navigate = useNavigate();
+  const SignOut = () =>{
+    dispatch(signOut());
+    dispatch(clearUser())
+    navigate('/delivery')
+    setisDropDowm(false);
+  }
 
   return (
     <div className="flex w-full items-center justify-between lg:hidden container mx-auto">
@@ -45,7 +60,7 @@ const MobileNav = ({ user, isDropDowm, setisDropDowm, signIn, signUp }) => {
             </div>
             {isDropDowm && (
               <div className="absolute shadow-lg py-3 -bottom-16 -right-4 w-full z-20 flex flex-col gap-3 border border-gray-100">
-                <button>Sign Out</button>
+                <button onClick={SignOut}>Sign Out</button>
               </div>
             )}
           </>
@@ -80,6 +95,14 @@ const LargeNav = ({ user, isDropDowm, setisDropDowm, signIn, signUp }) => {
     signUp();
     setisDropDowm(false);
   };
+  const dispatch =useDispatch();
+  const navigate = useNavigate();
+  const SignOut = () =>{
+    dispatch(signOut());
+    dispatch(clearUser())
+    navigate('/delivery')
+    setisDropDowm(false);
+  }
 
   return (
     <div className="lg:flex w-full items-center hidden justify-between px-14">
@@ -129,7 +152,7 @@ const LargeNav = ({ user, isDropDowm, setisDropDowm, signIn, signUp }) => {
             </div>
             {isDropDowm && (
               <div className="absolute shadow-lg py-3 -bottom-16 -right-0  w-32 bg-white z-20 flex flex-col gap-3 border border-gray-100">
-                <button>Sign Out</button>
+                <button onClick={SignOut}>Sign Out</button>
               </div>
             )}
           </>
@@ -162,9 +185,11 @@ const Navbar = () => {
   const openSignUpModal = () => setopenSignUp(true);
 
   const [isDropDowm, setisDropDowm] = useState(false);
-  const user = {
-    // fullname: "Ravi",
-  };
+  // const user = {
+  //   // fullname: "Ravi",
+  // };
+const user = useSelector((globalstate) => globalstate.user)
+
   return (
     <>
       <SignIn isOpen={openSignIn} setisOpen={setopenSignIn} />

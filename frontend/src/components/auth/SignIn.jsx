@@ -4,6 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 
 import { useDispatch } from 'react-redux';
 import { signIn } from "../../redux/reducers/auth/auth.action";
+import { getMySelf } from "../../redux/reducers/user/user.action";
 
 const SignIn = ({ isOpen, setisOpen }) => {
 
@@ -21,13 +22,14 @@ const SignIn = ({ isOpen, setisOpen }) => {
   }
   const dispatch = useDispatch();
 
-  const submit = () => {
-    dispatch(signIn(userData))
+  const submit = async() => {
+   await dispatch(signIn(userData))
+   await dispatch(getMySelf())
     closeModal();
     setuserData({ email: "", password: "" });
   }
 
-  const googleSignIn = () => (window.location.href = "https://localhost:4000/auth/google");
+  const googleSignIn = () => (window.location.href = "http://localhost:4000/auth/google");
 
 
   return (
