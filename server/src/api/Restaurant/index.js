@@ -60,13 +60,13 @@ Router.get("/", async (req, res) => {
     try {
         // http://localhost:4000/restaurant/?city:ncr
         const { city } = req.query;
-        const totalRestaurant = await RestaurantModel.find({
+        const restaurants = await RestaurantModel.find({
             city: city,
         });
-        if (totalRestaurant.length === 0) {
+        if (restaurants.length === 0) {
             return res.status(404).json({ message: `No Restaurant Found in ${city}` })
         }
-        return res.status(200).json({ success: true, totalRestaurant })
+        return res.status(200).json({ success: true, restaurants })
     }
     catch (error) {
         return res.status(500).json({ error: error.message })

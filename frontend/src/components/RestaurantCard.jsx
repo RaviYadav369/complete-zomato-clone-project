@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiTwotoneStar } from "react-icons/ai";
 
+//redux
+import {useDispatch} from 'react-redux'
+import { getImage } from "../redux/reducers/image/image.action";
+
+
 const RestaurantCard = (props) => {
     const [image, setimage] = useState({
-        images: [
-            {
-                location:
-                    "https://b.zmtcdn.com/data/pictures/chains/4/584/bdab27a41125cd45ddf814c7fad470b2_o2_featured_v2.jpg",
-            },
-        ],
+        images: [],
     });
 
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(getImage(props.photos)).then((data) =>{ 
+        // console.log(data.payload);
+        const images = data.payload.images;
+        setimage((prev) =>({...prev, images}))
+       })
+    }, [props.photos])
+
+    
     return (
         <Link
             to={`/restaurant/${props._id}/overview`}
@@ -57,3 +67,8 @@ const RestaurantCard = (props) => {
 };
 
 export default RestaurantCard;
+
+  // {
+            //     location:
+            //         "https://b.zmtcdn.com/data/pictures/chains/4/584/bdab27a41125cd45ddf814c7fad470b2_o2_featured_v2.jpg",
+            // },

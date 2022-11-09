@@ -6,9 +6,19 @@ import NightLife from '../components/NightLife';
 import Nutrition from '../components/Nutrition';
 import HomeLayout from '../layouts/Homepage-layout'
 
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getRestaurant } from '../redux/reducers/restaurant/restaurant.action';
+
 const HomePage = () => {
 
   const { type } = useParams();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getRestaurant())
+  }, [])
+
 
   return (
     <>
