@@ -58,7 +58,7 @@ Router.get("/:_id", async (req, res) => {
  */
 Router.get("/", async (req, res) => {
     try {
-        // http://localhost:4000/restaurant/?city:ncr
+        // ${process.env.REACT_APP_FRONTEND_URL}restaurant/?city:ncr
         const { city } = req.query;
         const restaurants = await RestaurantModel.find({
             city: city,

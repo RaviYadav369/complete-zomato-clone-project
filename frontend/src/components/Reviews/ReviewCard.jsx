@@ -32,14 +32,14 @@ const ReviewCard = (props) => {
             {props.rating} <TiStarFullOutline />
           </span>
           <h5 className='font-normal uppercase'>
-            {props.isRestaurantReview ? "Dining" : "Delivery"}
+            {props.isRestaurantReviews ? "Dining" : "Delivery"}
           </h5>
           <small className='text-gray-500'>
           {dayjs(props.createdAt).fromNow()}
           </small>
         </div>
         <div className='w-full'>
-          <p className='w-full text-gray-600 font-light text-base'> {props.reviewText} </p>
+          <p className='w-full text-gray-600 font-light text-base'> {props.reviewsText} </p>
         </div>
       </div>
     </div>

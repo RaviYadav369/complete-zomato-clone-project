@@ -29,7 +29,7 @@ const SignIn = ({ isOpen, setisOpen }) => {
     setuserData({ email: "", password: "" });
   }
 
-  const googleSignIn = () => (window.location.href = "http://localhost:4000/auth/google");
+  const googleSignIn = () => (window.location.href = `${process.env.REACT_APP_FRONTEND_URL}/auth/google`);
 
 
   return (

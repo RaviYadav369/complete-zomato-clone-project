@@ -17,12 +17,11 @@ const Router = express.Router();
 Router.get("/:resId", async (req, res) => {
     try {
         const { resId } = req.params;
-        await validationId(req.params);
-        const resReview = await ReviewsModel.find({ restaurant: resId }).sort({ createdAt: -1 });
-        if (resReview.length ===0) {
+        const reviews = await ReviewsModel.find({ restaurant: resId }).sort({ createdAt: -1 });
+        if (reviews.length ===0) {
             return res.status(404).json({ message: "No Review Found" })
         }
-        return res.status(200).json({ resReview })
+        return res.status(200).json({ reviews })
 
     } catch (error) {
         return res.status(500).json({ error: error.message })

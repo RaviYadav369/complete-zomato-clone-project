@@ -1,13 +1,22 @@
 import React from 'react'
 import {BsTrashFill} from 'react-icons/bs'
 
+//redux
+import { useDispatch } from 'react-redux'
+import { deleteCart,incrementQuantity, decrementQuantity } from '../../redux/reducers/cart/cart.action'
+
 const FoodItem = (props) => {
 
+  const dispatch = useDispatch();
 
-  const deleteFoodFromCart =() =>{}
+  const deleteFoodFromCart =() => dispatch(deleteCart(props._id))
 
-  const increment =()=>{}
-  const decrement =() =>{}
+  const increment =()=> dispatch(incrementQuantity(props._id))
+  const decrement =() =>{
+    if(props.quantity === 1) return;
+    dispatch(decrementQuantity(props._id))
+  }
+
 
   return (
     <>
@@ -15,7 +24,7 @@ const FoodItem = (props) => {
       <h5>{props.name}</h5>
       <div className='flex items-center gap-2'>
         <div className='flex flex-col items-end'>
-          <small> ${parseInt(props.price) * parseInt(props.quantity)} </small>
+          <small> ₹{parseInt(props.price) * parseInt(props.quantity)} </small>
           <div className='flex items-center rounded text-white bg-zomato-400 px-1 gap-1'>
             <button onClick={decrement} className="p-1 bg-zomato-400 text-white rounded"> - </button>
             <small>{props.quantity}</small>

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 
+import { useSelector } from 'react-redux'
+
 import {useNavigate} from 'react-router-dom'
 
 const CheckOutNavbar = () => {
 
-    const [user, setuser] = useState({
-        fullname: "Ravi",
-    })
+    const user = useSelector((globalState) => globalState.user)
 const navigate = useNavigate()
 
 

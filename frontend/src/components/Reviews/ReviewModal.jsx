@@ -3,16 +3,23 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useParams } from "react-router-dom";
 import Rating from "react-rating-stars-component";
 
+//redux
+import { useDispatch } from 'react-redux'
+import { postReview } from '../../redux/reducers/review/review.action';
+
 const ReviewModal = ({ isOpen, setisOpen, type, ...props }) => {
+    const { id } = useParams();
     const [reviewData, setrevieData] = useState({
-        subject: "",
-        reviewText: "",
-        isRestaurantReview: false,
-        isFoodReview: false,
+        
+        reviewsText: "",
+        isRestaurantReviews: false,
+        isFoodReviews: false,
         rating: 0,
     });
 
-    const { id } = useParams();
+    const dispatch = useDispatch();
+
+  
 
     const handleChange = (event) => {
         setrevieData((prev) => ({
@@ -24,13 +31,13 @@ const ReviewModal = ({ isOpen, setisOpen, type, ...props }) => {
     const handleRating = (rating) => {
         setrevieData((prev) => ({ ...prev, rating }));
     };
-    // console.log(reviewData.isRestaurantReview, reviewData.isFoodReview);
+    // console.log(reviewData.isRestaurantReviews, reviewData.isFoodReviews);
 
     const toggleDining = () => {
         setrevieData((prev) => ({
             ...prev,
-            isRestaurantReview: !prev.isRestaurantReview,
-            isFoodReview: false,
+            isRestaurantReviews: !prev.isRestaurantReviews,
+            isFoodReviews: false,
         }));
     };
 
@@ -38,39 +45,42 @@ const ReviewModal = ({ isOpen, setisOpen, type, ...props }) => {
         if (type === "delivery")
             setrevieData((prev) => ({
                 ...prev,
-                isFoodReview: true,
-                isRestaurantReview: false,
+                isFoodReviews: true,
+                isRestaurantReviews: false,
             }));
         else if (type === "dining")
             setrevieData((prev) => ({
                 ...prev,
-                isRestaurantReview: true,
-                isFoodReview: false,
+                isRestaurantReviews: true,
+                isFoodReviews: false,
             }));
     }, [type]);
 
     const toggleDelivery = () => {
         setrevieData((prev) => ({
             ...prev,
-            isFoodReview: !prev.isFoodReview,
-            isRestaurantReview: false,
+            isFoodReviews: !prev.isFoodReviews,
+            isRestaurantReviews: false,
         }));
-    };
-
-    const submit = () => { 
-        closeModal();
-        setrevieData({
-            subject: "",
-            reviewText: "",
-            isRestaurantReview: false,
-            isFoodReview: false,
-            rating: 0,
-        })
     };
 
     const closeModal = () => {
         setisOpen(false);
     };
+
+    const submit = () => {
+        dispatch(postReview({ ...reviewData, restaurant: id }))
+        closeModal();
+        setrevieData({
+           
+            reviewsText: "",
+            isRestaurantReviews: false,
+            isFoodReviews: false,
+            rating: 0,
+        })
+    };
+
+    
     return (
         <>
             <Transition appear show={isOpen} as={Fragment}>
@@ -112,7 +122,7 @@ const ReviewModal = ({ isOpen, setisOpen, type, ...props }) => {
                                                     type="radio"
                                                     name="review"
                                                     id="dining"
-                                                    checked={reviewData.isRestaurantReview}
+                                                    checked={reviewData.isRestaurantReviews}
                                                     onChange={toggleDining}
                                                 />
                                                 <label htmlFor="dining">Dining</label>
@@ -122,7 +132,7 @@ const ReviewModal = ({ isOpen, setisOpen, type, ...props }) => {
                                                     type="radio"
                                                     name="review"
                                                     id="delivery"
-                                                    checked={reviewData.isFoodReview}
+                                                    checked={reviewData.isFoodReviews}
                                                     onChange={toggleDelivery}
                                                 />
                                                 <label htmlFor="delivery">Delivery</label>
@@ -135,7 +145,7 @@ const ReviewModal = ({ isOpen, setisOpen, type, ...props }) => {
                                             onChange={handleRating}
                                         />
                                         <form className="flex flex-col gap-4">
-                                            <div className="flex flex-col gap-2">
+                                            {/* <div className="flex flex-col gap-2">
                                                 <label htmlFor="subject">Subject</label>
                                                 <input
                                                     type="text"
@@ -145,16 +155,16 @@ const ReviewModal = ({ isOpen, setisOpen, type, ...props }) => {
                                                     value={reviewData.subject}
                                                     onChange={handleChange}
                                                 />
-                                            </div>
+                                            </div> */}
                                             <div className="flex flex-col gap-2">
-                                                <label htmlFor="reviewtext">Comment</label>
+                                                <label htmlFor="reviewsText">Comment</label>
                                                 <textarea
                                                     type="text"
                                                     rows={5}
-                                                    id="reviewText"
+                                                    id="reviewsText"
                                                     placeholder="Add context...."
                                                     className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline focus:border-zomato-400"
-                                                    value={reviewData.reviewText}
+                                                    value={reviewData.reviewsText}
                                                     onChange={handleChange}
                                                 />
                                             </div>

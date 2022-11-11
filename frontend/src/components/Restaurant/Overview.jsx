@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { IoMdArrowDropright } from 'react-icons/io'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -12,56 +12,41 @@ import ReviewCard from '../Reviews/ReviewCard'
 
 //redux
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getReview } from '../../redux/reducers/review/review.action';
+import { getImage } from '../../redux/reducers/image/image.action'
 
 const Overview = () => {
-  const [restaurant, setrestaurant] = useState({ cuisine:[],})
+  const { id } = useParams();
+  const [menuImages, setmenuImages] = useState([]);
+  const [reviews, setreviews] = useState([])
+  const [restaurant, setrestaurant] = useState({ cuisine: [], })
+
   const reduxState = useSelector((globalState) => globalState.restaurant.specificRestaurant.restaurantData);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if(reduxState){
+    if (reduxState) {
       setrestaurant(reduxState)
     }
   }, [reduxState])
-  
 
-  // const [restaurant, setRestaurant] = useState({
-  //   _id: "124ksjf435245jv34fg3",
-  //   isPro: true,
-  //   isOff: true,
-  //   name: "Nathu's Sweets",
-  //   restaurantReviewValue: "3.7",
-  //   cuisine: [
-  //     "Mithai",
-  //     "South Indian",
-  //     "Chinese",
-  //     "Street Food",
-  //     "Fast Food",
-  //     "Desserts",
-  //     "North Indian",
-  //   ],
-  //   averageCost: "450",
-  // });
+  useEffect(() => {
+    if (reduxState) {
+      dispatch(getImage(reduxState?.menuImages)).then((data) => {
+        const images = [];
+        data.payload.images.map(({location}) => images.push(location))
+        setmenuImages(images);
+      });
 
-  const [menuImages, setmenuImages] = useState([
-    "https://b.zmtcdn.com/data/menus/931/931/d40e86a957d1ed6e6fabe5a67a161904.jpg",
-    "https://b.zmtcdn.com/data/menus/931/931/36f8a3b9e5dbf6435f903c9a8745bcc8.jpg",
-    "https://b.zmtcdn.com/data/menus/931/931/8d6623791860b054953b6c2c14d61bcb.jpg",
-    "https://b.zmtcdn.com/data/menus/931/931/6d462a04051c0eabb0067149aa84cc64.jpg",
-  ]);
-  const [reviews, setreviews] = useState([
-    {
-      rating: 3.5,
-      isRestaurantReview: false,
-      createdAt: "Fri Oct 14 2022 20:20:34 GMT+0530 (India Standard Time)",
-      reviewText: "Very bad experience.",
-    },
-    {
-      rating: 4.5,
-      isRestaurantReview: false,
-      createdAt: "Fri Oct 14 2022 20:19:34 GMT+0530 (India Standard Time)",
-      reviewText: "Very good experience.",
-    },])
-  const { id } = useParams();
+      dispatch(getReview(reduxState?._id)).then((data) => {
+        // console.log(data.payload);
+        setreviews(data.payload.reviews)
+      })
+    }
+  }, [reduxState])
+
 
   const slideConfig = {
     slidesPerView: 1,
@@ -162,14 +147,14 @@ const Overview = () => {
             <MapView title="McDonald's"
               phone='+91936945136'
               mapLocation={getLatLong("28.64121406271755, 77.21955482132051")}
-              LatAndLong = {"28.64121406271755, 77.21955482132051"}
+              LatAndLong={"28.64121406271755, 77.21955482132051"}
               address="H-5/6, Plaza Building, Connaught Place, New Delhi" />
           </div>
         </div>
       </div>
 
-      <aside style={{ height: 'fit-content' }} 
-      className='hidden md:flex md:w-4/12 sticky rounded-xl top-20 bg-white p-3 shadow-md flex-col gap-4'>
+      <aside style={{ height: 'fit-content' }}
+        className='hidden md:flex md:w-4/12 sticky rounded-xl top-20 bg-white p-3 shadow-md flex-col gap-4'>
         <MapView title="McDonald's"
           phone='+91936945136'
           mapLocation={getLatLong("28.64121406271755, 77.21955482132051")}
@@ -180,3 +165,40 @@ const Overview = () => {
 }
 
 export default Overview
+
+// const [restaurant, setRestaurant] = useState({
+  //   _id: "124ksjf435245jv34fg3",
+  //   isPro: true,
+  //   isOff: true,
+  //   name: "Nathu's Sweets",
+  //   restaurantReviewValue: "3.7",
+  //   cuisine: [
+  //     "Mithai",
+  //     "South Indian",
+  //     "Chinese",
+  //     "Street Food",
+  //     "Fast Food",
+  //     "Desserts",
+  //     "North Indian",
+  //   ],
+  //   averageCost: "450",
+  // });
+
+// {
+    //   rating: 3.5,
+    //   isRestaurantReviews: false,
+    //   createdAt: "Fri Oct 14 2022 20:20:34 GMT+0530 (India Standard Time)",
+    //   reviewsText: "Very bad experience.",
+    // },
+    // {
+    //   rating: 4.5,
+    //   isRestaurantReviews: false,
+    //   createdAt: "Fri Oct 14 2022 20:19:34 GMT+0530 (India Standard Time)",
+    //   reviewsText: "Very good experience.",
+    // },
+
+
+        // "https://b.zmtcdn.com/data/menus/931/931/d40e86a957d1ed6e6fabe5a67a161904.jpg",
+    // "https://b.zmtcdn.com/data/menus/931/931/36f8a3b9e5dbf6435f903c9a8745bcc8.jpg",
+    // "https://b.zmtcdn.com/data/menus/931/931/8d6623791860b054953b6c2c14d61bcb.jpg",
+    // "https://b.zmtcdn.com/data/menus/931/931/6d462a04051c0eabb0067149aa84cc64.jpg",
