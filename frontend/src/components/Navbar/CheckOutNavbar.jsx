@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 
 import { useSelector } from 'react-redux'
 
-import {useNavigate} from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const CheckOutNavbar = () => {
 
     const user = useSelector((globalState) => globalState.user)
-const navigate = useNavigate()
+    const navigate = useNavigate()
 
 
     return (
@@ -18,7 +18,9 @@ const navigate = useNavigate()
                     <div className='flex items-center justify-between w-full '>
                         <AiOutlineArrowLeft className='cursor-pointer' onClick={() => navigate(-1)} />
                         <div className='w-28 '>
-                            <img src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png" alt='logo' className='w-full h-full' />
+                            <Link to='/'>
+                                <img src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png" alt='logo' className='w-full h-full' />
+                            </Link>
                         </div>
                         <div className='flex items-center justify-center gap-3'>
                             <div className='border border-gray-300 text-zomato-400 w-10 h-10 rounded-full'>
@@ -34,4 +36,4 @@ const navigate = useNavigate()
 }
 
 
-    export default CheckOutNavbar
+export default CheckOutNavbar

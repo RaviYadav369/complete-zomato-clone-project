@@ -3,7 +3,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -24,9 +24,9 @@ const MobileNav = ({ user, isDropDowm, setisDropDowm, signIn, signUp }) => {
     setisDropDowm(false);
   };
 
-  const dispatch =useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const SignOut = () =>{
+  const SignOut = () => {
     dispatch(signOut());
     dispatch(clearUser())
     navigate('/delivery')
@@ -36,11 +36,13 @@ const MobileNav = ({ user, isDropDowm, setisDropDowm, signIn, signUp }) => {
   return (
     <div className="flex w-full items-center justify-between lg:hidden container mx-auto">
       <div className="w-28">
-        <img
-          src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
-          alt="logo"
-          className="w-full h-full"
-        />
+        <Link to='/'>
+          <img
+            src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
+            alt="logo"
+            className="w-full h-full"
+          />
+        </Link>
       </div>
       <div className="flex items-center gap-3 relative">
         <button className="bg-zomato-400 text-white py-2 px-3 rounded-full">
@@ -95,9 +97,9 @@ const LargeNav = ({ user, isDropDowm, setisDropDowm, signIn, signUp }) => {
     signUp();
     setisDropDowm(false);
   };
-  const dispatch =useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const SignOut = () =>{
+  const SignOut = () => {
     dispatch(signOut());
     dispatch(clearUser())
     navigate('/delivery')
@@ -108,11 +110,13 @@ const LargeNav = ({ user, isDropDowm, setisDropDowm, signIn, signUp }) => {
     <div className="lg:flex w-full items-center hidden justify-between px-14">
       <div className="gap-4 flex items-center justify-around">
         <div className="w-20">
-          <img
-            src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
-            alt="logo"
-            className="w-full h-full"
-          />
+          <Link to='/'>
+            <img
+              src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
+              alt="logo"
+              className="w-full h-full"
+            />
+          </Link>
         </div>
       </div>
       <div className="w-3/4 flex bg-white shadow-md p-3 items-center gap-3 border border-gray-200 rounded">
@@ -188,7 +192,7 @@ const Navbar = () => {
   // const user = {
   //   // fullname: "Ravi",
   // };
-const user = useSelector((globalstate) => globalstate.user)
+  const user = useSelector((globalstate) => globalstate.user)
 
   return (
     <>
